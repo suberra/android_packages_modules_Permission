@@ -13,6 +13,9 @@
     <permission android:name="com.android.permissioncontroller.permission.MANAGE_ROLES_FROM_CONTROLLER"
                 android:protectionLevel="signature" />
 
+    <permission android:name="com.android.permissioncontroller.permission.LAUNCH_GMSCOMPAT_ACTIVITIES"
+                android:protectionLevel="internal|preinstalled" />
+
     <uses-permission android:name="android.permission.MANAGE_USERS" />
     <uses-permission android:name="android.permission.GRANT_RUNTIME_PERMISSIONS" />
     <uses-permission android:name="android.permission.REVOKE_RUNTIME_PERMISSIONS" />
@@ -74,7 +77,7 @@
 
     <application android:name="com.android.permissioncontroller.PermissionControllerApplication"
             android:label="@string/app_name"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_permission_controller_app_icon"
             android:allowBackup="false"
             android:allowClearUserData="false"
             android:supportsRtl="true"
@@ -696,6 +699,57 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- based on GrantPermissionsActivity-->
+        <activity
+            android:name="com.android.permissioncontroller.sscopes.BroadStorageAccessPromptActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@style/GrantPermissions.FilterTouches"
+            android:inheritShowWhenLocked="true"
+            android:hardwareAccelerated="false"
+        >
+            <intent-filter>
+                <action android:name="android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION_PROMPT" />
+                <action android:name="android.settings.REQUEST_MANAGE_MEDIA_PROMPT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.android.permissioncontroller.sscopes.StorageScopesActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PermissionController.Settings.Expressive.FilterTouches"
+            android:excludeFromRecents="true"
+            android:permission="android.permission.WRITE_SECURE_SETTINGS"
+        >
+        <!-- WRITE_SECURE_SETTINGS permission is held only by privileged apps -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.android.permissioncontroller.cscopes.ContactScopesActivity"
+            android:theme="@style/Theme.PermissionController.Settings.Expressive.FilterTouches"
+            android:permission="android.permission.WRITE_SECURE_SETTINGS"
+            android:exported="true" />
+
+
+        <activity
+            android:name="com.android.permissioncontroller.ext.aauto.AndroidAutoConfigActivity"
+            android:theme="@style/Theme.PermissionController.Settings.Expressive.FilterTouches"
+            android:permission="com.android.permissioncontroller.permission.LAUNCH_GMSCOMPAT_ACTIVITIES"
+            android:exported="true" />
+
+        <activity
+            android:name="com.android.permissioncontroller.ext.gmscore.GmsCoreConfigActivity"
+            android:theme="@style/Theme.PermissionController.Settings.Expressive.FilterTouches"
+            android:permission="com.android.permissioncontroller.permission.LAUNCH_GMSCOMPAT_ACTIVITIES"
+            android:exported="true" />
 
         <service
             android:name="com.android.permissioncontroller.permission.service.DeviceStateAppFunctionService"
