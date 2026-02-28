@@ -156,7 +156,7 @@ class GmsCoreConfigFragment : PermissionsFrameFragment() {
             return
         }
 
-        val ps = GosPackageState.get(PKG_NAME, requireContext().user)
+        val ps = GosPackageState.get(PKG_NAME, android.os.Process.myUserHandle())
 
         pkgFlagPrefs.entries.forEach {
             it.value.isChecked = ps.hasPackageFlag(it.key)
